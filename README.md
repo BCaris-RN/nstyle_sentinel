@@ -1,16 +1,21 @@
 # nstyle_sentinel
 
-A new Flutter project.
+NStyle Sentinel is a high-integrity booking workflow prototype for NStyle by Toney.
 
-## Getting Started
+This repository now includes:
 
-This project is a starting point for a Flutter application.
+- Flutter (Riverpod) approval dashboard with a 12-month `SfCalendar` view
+- `shared_preferences` draft recovery for Toney's manual approval step
+- Node.js Sentinel middleware for AI-agent `book/cancel/modify` orchestration
+- PostgreSQL schema for `clients`, `appointments`, and `availability_overrides`
 
-A few resources to get you started if this is your first Flutter project:
+## Quick Start (Flutter)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+flutter pub get
+flutter run
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Backend Sentinel
+
+See `backend/sentinel/` for the Node middleware package and `database/schema/nstyle_sentinel.sql` for the database schema.
