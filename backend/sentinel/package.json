@@ -1,0 +1,16 @@
+{
+  "name": "nstyle-sentinel-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sentinel middleware for NStyle by Toney booking orchestration",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "check": "node --check src/index.js"
+  },
+  "dependencies": {
+    "p-retry": "^6.2.0",
+    "pg": "^8.13.1"
+  }
+}
