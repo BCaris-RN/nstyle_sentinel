@@ -47,3 +47,8 @@ app.*.map.json
 # Local architecture reference bundle (do not publish)
 /the_Caris_Stack_v3/
 /Do Not ADD the Caris stack v3 to Git HUB.txt
+/backend/sentinel/node_modules/
+/SEMANTIC_BUNDLE.txt
+/lefthook.yml
+/complexity_gate.py
+/docs/
