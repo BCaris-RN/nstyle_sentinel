@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,7 +10,12 @@ void main() {
     SharedPreferences.setMockInitialValues(<String, Object>{});
 
     await tester.pumpWidget(const ProviderScope(child: NStyleSentinelApp()));
-    await tester.pump(const Duration(milliseconds: 400));
+    expect(find.text('Initialize Secure System'), findsOneWidget);
+
+    await tester.tap(
+      find.widgetWithText(ElevatedButton, 'Initialize Secure System'),
+    );
+    await tester.pumpAndSettle();
 
     expect(find.text('NStyle Sentinel'), findsOneWidget);
     expect(find.text('Toney Approval Queue'), findsOneWidget);

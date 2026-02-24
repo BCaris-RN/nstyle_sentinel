@@ -419,3 +419,89 @@ from git staging/commit/push for this phase:
 
 Only the NStyle Sentinel product code, tests, dependency manifests, generated Flutter plugin
 registrant updates, and this team review log addendum are included in the git commit for this phase.
+
+## Session Addendum: Splash Screen TDD + Animated Entry (Latest)
+
+Additional UI work completed after the test/backfill phase:
+
+### F. Splash Screen (Test-First) + Deterministic Entry Gate
+
+Added a presentational splash screen with explicit, testable initialization flow:
+
+- `lib/presentation/splash_view.dart`
+- `test/splash_view_test.dart`
+
+Integrated splash into app startup:
+
+- `lib/main.dart`
+  - App now starts at a local `_EntryGate`
+  - `SplashView` renders first
+  - "Initialize Secure System" button explicitly transitions into the dashboard
+
+UI constraints enforced (per review guidance):
+
+- NStyle splash palette hardcoded for presentational component:
+  - Dark `#0A0A0A`
+  - Gold `#D4AF37`
+  - Steel `#64748B`
+- Display typography locked to `64px`
+- Body/button typography uses `16px`
+- Button min touch target `>= 44px`
+- Deterministic navigation via explicit button (no auto timer redirect)
+
+TDD sequence executed:
+
+1. Added `test/splash_view_test.dart`
+2. Ran test and confirmed expected compile failure (missing `SplashView`)
+3. Implemented `SplashView`
+4. Added `_EntryGate` splash-to-dashboard app flow
+5. Updated existing `test/widget_test.dart` to tap through splash first
+6. Re-ran tests and analysis successfully
+
+### G. Splash Animation Enhancements (Latest)
+
+Added non-generic animated presentation while preserving the explicit button flow and testability:
+
+- `SplashView` converted to `StatefulWidget`
+- Entrance animation uses:
+  - `AnimatedContainer` (background accent circles)
+  - `AnimatedSlide`
+  - `AnimatedOpacity`
+  - `TweenAnimationBuilder` scale for button settle-in
+- `_EntryGate` transition uses:
+  - `AnimatedSwitcher`
+  - `FadeTransition`
+
+Accessibility / determinism note:
+
+- Honors reduced motion via `MediaQuery.disableAnimations` fallback (durations collapse to zero)
+- Button interaction remains the only navigation trigger
+
+Verification (latest UI phase):
+
+- `flutter test test/splash_view_test.dart` passed
+- `flutter test test/widget_test.dart test/splash_view_test.dart` passed
+- `flutter analyze lib/main.dart lib/presentation/splash_view.dart test/splash_view_test.dart test/widget_test.dart` passed
+
+## Estimated Token Use (Whole Build Session, Approximation)
+
+Exact token accounting is not available from the local workspace because provider-side usage telemetry
+is not exposed here. The following is an engineering estimate based on visible prompt size, tool I/O,
+code generation volume, and repeated verification cycles during this session.
+
+Estimated ranges:
+
+- Visible interaction + tool I/O + code patch payloads: approximately `180k - 280k` tokens
+- Effective total model-consumed tokens (including hidden/system instructions and repeated context replay):
+  approximately `350k - 700k` tokens
+
+Practical planning number for team review / budgeting:
+
+- Use `~500k tokens` as a reasonable midpoint estimate for the full build session
+
+What drove token usage upward in this session:
+
+- Large initial architecture specification and follow-on SDLC/test directives
+- End-to-end generation of Flutter + Node + SQL deliverables
+- Iterative verification loops (format/analyze/tests/Jest/Flutter integration runs)
+- Detailed code logs and git workflow documentation

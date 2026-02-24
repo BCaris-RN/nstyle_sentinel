@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart' as sfc;
 
+import 'presentation/splash_view.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: NStyleSentinelApp()));
@@ -20,7 +22,40 @@ class NStyleSentinelApp extends StatelessWidget {
       title: 'NStyle Sentinel',
       debugShowCheckedModeBanner: false,
       theme: NStyleTheme.theme,
-      home: const DashboardScreen(),
+      home: const _EntryGate(),
+    );
+  }
+}
+
+class _EntryGate extends StatefulWidget {
+  const _EntryGate();
+
+  @override
+  State<_EntryGate> createState() => _EntryGateState();
+}
+
+class _EntryGateState extends State<_EntryGate> {
+  var _initialized = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 350),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeInCubic,
+      transitionBuilder: (child, animation) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+      child: _initialized
+          ? const DashboardScreen(key: ValueKey('dashboard'))
+          : SplashView(
+              key: const ValueKey('splash'),
+              onEnter: () {
+                setState(() {
+                  _initialized = true;
+                });
+              },
+            ),
     );
   }
 }
