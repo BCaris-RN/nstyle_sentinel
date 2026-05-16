@@ -1,5 +1,7 @@
 # NStyle Sentinel: High-Integrity Booking Ecosystem
 
+(Note: This is not yet a live connected approval app)
+
 **NStyle Sentinel** is a high-integrity, multi-platform booking ecosystem designed for Nstyle by Toney. Its defining feature is a **"Dual-Handshake Confirmation"** workflow: an AI agent (orchestrated via Twilio or VAPI) greets clients and proposes appointment times; once a client agrees, a push notification is sent to Toney's app. Toney must manually approve the appointment before the system fires a confirmation webhook back to the client.
 
 "Built on The Caris Stack Protocol, strictly adhering to the following mandated blueprints:
